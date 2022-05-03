@@ -15,7 +15,7 @@ import java.time.ZoneId;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping(path = "/parking-spot")
+@RequestMapping(path = "/parking-spot", produces = {"application/json"})
 public class ParkingSportController {
 
     final ParkingSpotService parkingSpotService;
@@ -25,9 +25,20 @@ public class ParkingSportController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> saveParkingSpot(@RequestBody @Valid ParkingSportDto parkingSportDto) {
+    public ResponseEntity<Object> saveParkingSpot(@RequestBody @Valid ParkingSportDto parkingSpotDto) {
+
+        if (parkingSpotService.existsByLicensePlateCar(parkingSpotDto.getLicensePlateCar())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: License Plate Car is already in use");
+        }
+        if(parkingSpotService.existsByParkingSpotNumber(parkingSpotDto.getParkingSpotNumber())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Parking Spot is already in use");
+        }
+        if(parkingSpotService.existsByApartmentAndBlock(parkingSpotDto.getApartment(), parkingSpotDto.getBlock())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Parking Spot is already in use");
+        }
+
         var parkingSpotModel = new ParkingSpotModel();
-        BeanUtils.copyProperties(parkingSportDto, parkingSpotModel);
+        BeanUtils.copyProperties(parkingSpotDto, parkingSpotModel);
         parkingSpotModel.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
         return ResponseEntity.status(HttpStatus.CREATED).body(parkingSpotService.save(parkingSpotModel));
     }
