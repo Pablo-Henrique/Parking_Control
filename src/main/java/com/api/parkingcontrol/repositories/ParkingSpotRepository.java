@@ -14,8 +14,4 @@ public interface ParkingSpotRepository extends JpaRepository<ParkingSpotEntity, 
 
     boolean existsByParkingSpotNumber(String parkingSpotNumber);
     boolean existsByApartmentAndBlock(String apartment, String block);
-
-    @Override
-    @Query(value = "SELECT p FROM ParkingSpotEntity p join fetch CarEntity")
-    Page<ParkingSpotEntity> findAll(Pageable pageable);
 }

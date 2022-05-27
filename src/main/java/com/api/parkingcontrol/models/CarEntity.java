@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -37,8 +38,8 @@ public class CarEntity implements Serializable {
     @Column(name = "COLOR_CAR", nullable = false, length = 70)
     private String colorCar;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private ParkingSpotEntity parkingSpot;
+    @OneToMany(mappedBy = "carEntity", cascade = CascadeType.PERSIST)
+    private List<ParkingSpotEntity> parkingSpot;
 
     @Override
     public boolean equals(Object o) {

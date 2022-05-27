@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Objects;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -44,6 +44,10 @@ public class ParkingSpotService {
         return parkingSpotRepository.findAll(pageable);
     }
 
+    public List<ParkingSpotEntity> findAll() {
+        return parkingSpotRepository.findAll();
+    }
+
     public Optional<ParkingSpotEntity> findById(UUID id) {
         return parkingSpotRepository.findById(id);
     }
@@ -52,26 +56,4 @@ public class ParkingSpotService {
     public void delete(ParkingSpotEntity parkingSpotEntity) {
         parkingSpotRepository.delete(parkingSpotEntity);
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj == null || obj.getClass() != this.getClass()) return false;
-        var that = (ParkingSpotService) obj;
-        return Objects.equals(this.parkingSpotRepository, that.parkingSpotRepository) &&
-                Objects.equals(this.carRepository, that.carRepository);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(parkingSpotRepository, carRepository);
-    }
-
-    @Override
-    public String toString() {
-        return "ParkingSpotService[" +
-                "parkingSpotRepository=" + parkingSpotRepository + ", " +
-                "carRepository=" + carRepository + ']';
-    }
-
 }

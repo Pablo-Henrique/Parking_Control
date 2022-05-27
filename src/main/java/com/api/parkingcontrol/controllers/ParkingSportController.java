@@ -1,7 +1,6 @@
 package com.api.parkingcontrol.controllers;
 
 import com.api.parkingcontrol.controllers.dto.ParkingSpotDto;
-import com.api.parkingcontrol.models.CarEntity;
 import com.api.parkingcontrol.models.ParkingSpotEntity;
 import com.api.parkingcontrol.services.ParkingSpotService;
 import org.springframework.beans.BeanUtils;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -50,9 +50,9 @@ public class ParkingSportController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ParkingSpotEntity>> getAll(
+    public ResponseEntity<List<ParkingSpotEntity>> getAll(
             @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.findAll(pageable));
+        return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.findAll());
     }
 
     @GetMapping(path = "/{id}")

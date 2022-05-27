@@ -42,7 +42,7 @@ public class ParkingSpotEntity implements Serializable {
     @Column(name = "BLOCK", nullable = false, length = 30)
     private String block;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "parkingSpot", fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JsonProperty(value = "carEntity")
     private CarEntity carEntity;
 
