@@ -37,7 +37,7 @@ public class CarEntity implements Serializable {
     @Column(name = "COLOR_CAR", nullable = false, length = 70)
     private String colorCar;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private ParkingSpotEntity parkingSpot;
 
     @Override

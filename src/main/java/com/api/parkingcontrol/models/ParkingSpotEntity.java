@@ -1,5 +1,6 @@
 package com.api.parkingcontrol.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -41,7 +42,7 @@ public class ParkingSpotEntity implements Serializable {
     @Column(name = "BLOCK", nullable = false, length = 30)
     private String block;
 
-    @OneToOne(cascade = CascadeType.ALL,mappedBy = "parkingSpot")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "parkingSpot", fetch = FetchType.EAGER)
     @JsonProperty(value = "carEntity")
     private CarEntity carEntity;
 

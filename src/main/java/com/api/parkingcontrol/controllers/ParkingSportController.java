@@ -1,6 +1,7 @@
 package com.api.parkingcontrol.controllers;
 
 import com.api.parkingcontrol.controllers.dto.ParkingSpotDto;
+import com.api.parkingcontrol.models.CarEntity;
 import com.api.parkingcontrol.models.ParkingSpotEntity;
 import com.api.parkingcontrol.services.ParkingSpotService;
 import org.springframework.beans.BeanUtils;
@@ -49,7 +50,7 @@ public class ParkingSportController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ParkingSpotEntity>> getAllParkingSpots(
+    public ResponseEntity<Page<ParkingSpotEntity>> getAll(
             @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
         return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.findAll(pageable));
     }
