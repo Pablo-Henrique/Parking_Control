@@ -1,5 +1,6 @@
 package com.api.parkingcontrol.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -11,52 +12,44 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table(name = "TB_PARKING_SPOT")
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class ParkingSpotModel implements Serializable{
+@Table(name = "TB_PARKING_SPOT")
+public class ParkingSpotEntity implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 8713569715332608930L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(nullable = false, unique = true, length = 10)
+    @Column(name = "PARKING_SPOT_NUMBER", nullable = false, unique = true, length = 10)
     private String parkingSpotNumber;
 
-    @Column(nullable = false, unique = true, length = 7)
-    private String licensePlateCar;
-
-    @Column(nullable = false, length = 70)
-    private String brandCar;
-
-    @Column(nullable = false, length = 70)
-    private String modelCar;
-
-    @Column(nullable = false, length = 70)
-    private String colorCar;
-
-    @Column(nullable = false)
+    @Column(name = "REGISTRATION_DATE", nullable = false)
     private LocalDateTime registrationDate;
 
-    @Column(nullable = false, length = 130)
+    @Column(name = "RESPONSIBLE_NAME", nullable = false, length = 130)
     private String responsibleName;
 
-    @Column(nullable = false, length = 30)
+    @Column(name = "APARTMENT", nullable = false, length = 30)
     private String apartment;
 
-    @Column(nullable = false, length = 30)
+    @Column(name = "BLOCK", nullable = false, length = 30)
     private String block;
+
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "parkingSpot")
+    @JsonProperty(value = "carEntity")
+    private CarEntity carEntity;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        ParkingSpotModel that = (ParkingSpotModel) o;
+        ParkingSpotEntity that = (ParkingSpotEntity) o;
         return id != null && Objects.equals(id, that.id);
     }
 

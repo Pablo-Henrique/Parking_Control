@@ -1,18 +1,14 @@
-package com.api.parkingcontrol.dtos;
+package com.api.parkingcontrol.controllers.dto;
 
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 @Data
-public class ParkingSportDto {
+public class ParkingSpotDto {
 
     @NotBlank
     private String parkingSpotNumber;
-
-    @NotBlank @Size(max = 7)
-    private String licensePlateCar;
 
     @NotBlank
     private String brandCar;

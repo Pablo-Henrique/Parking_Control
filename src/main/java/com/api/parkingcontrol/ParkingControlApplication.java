@@ -10,4 +10,6 @@ public class ParkingControlApplication {
         SpringApplication.run(ParkingControlApplication.class, args);
     }
 
+
+
 }
